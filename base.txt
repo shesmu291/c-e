@@ -1,0 +1,7 @@
+1 mersedes 2014 sport 1090000 0
+2 bmw 2013 sport 1039000 0
+3 bmw 2009 sport 645000 1
+4 chevrolet 2014 light 650000 1
+5 toyota 2000 light 155000 1
+6 alfa 1998 light 40000 1
+7 audi 2003 light 260000 0
