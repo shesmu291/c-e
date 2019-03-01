@@ -1,0 +1,311 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <vector>
+#include <fstream>
+using namespace std;
+
+struct avto
+{
+	int id;
+	string mark;
+	int year;
+	string category; // sport heavy light 
+	float price;
+	bool old;
+};
+
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	ifstream fin;
+	vector<avto> inf;
+	avto car;
+	//int id1;
+	fin.open("base.txt");
+	if (fin.is_open())
+	{
+		while (!fin.eof())
+		{
+			fin >> car.id;
+			//id1 = car.id;
+			fin >> car.mark;
+			fin >> car.year;
+			fin >> car.category;
+			fin >> car.price;
+			fin >> car.old;
+			inf.push_back(car);
+		}
+		fin.close();
+
+	}
+	else
+	{
+		cout << "Error" << endl;
+	}
+	int menu = -1;
+	while (menu != 0)
+	{
+		cout << endl;
+		cout << "јјјјј¬“ќћќЅ»»»»»»»»»»»»»Ћ№" << endl;
+		cout << "1. распечатка" << endl;
+		cout << "2. добавить машину" << endl;
+		cout << "3. удаление" << endl;
+		cout << "4. распечатка по категории " << endl;
+		cout << "5. сохранение в файл" << endl;
+		cout << "6. сортировка" << endl;
+		cout << "7. информаци€ по цене" << endl;
+		cout << "0. выход" << endl;
+		cin >> menu;
+		switch (menu)
+		{
+		case 1:
+		{
+			for (int i = 0; i < inf.size(); i++)
+			{
+				cout << left << setw(10) << inf[i].id << setw(10) << inf[i].mark << setw(10) << inf[i].year << setw(10) << inf[i].category << setw(13) << inf[i].price << setw(13) << inf[i].old << endl;
+			}
+			break;
+		}
+		case 2:
+		{
+			cout << "введите id, марку, год, категорию(sport heavy light), цена, поддерженный/нет (1/0)  машины" << endl;
+
+			cin >> car.id >> car.mark >> car.year >> car.category >> car.price >> car.old;
+			inf.push_back(car);
+			break;
+		}
+		case 3:
+		{
+			int ud;
+			cout << "выберите категорию, по которой произвести удаление" << endl
+				<< " 1.id   2.марка    3.год   4. категри€  5. цена  6.поддерж" << endl;
+			cin >> ud;
+			int udal_in;
+			string udal_st;
+			switch (ud)
+			{
+
+			case 1:
+			{
+				cout << "введите id" << endl;
+				cin >> udal_in;
+				for (int i = 0; i < inf.size(); i++)
+				{
+					if (udal_in == inf[i].id)
+					{
+						inf.erase(inf.begin() + i);
+						i--;
+					}
+				}
+				break;
+			}
+			case 2:
+			{
+				cout << "введите марку" << endl;
+				cin >> udal_st;
+				for (int i = 0; i < inf.size(); i++)
+				{
+					if (inf[i].mark == udal_st)
+					{
+						inf.erase(inf.begin() + i);
+						i--;
+					}
+				}
+				break;
+			}
+			case 3:
+			{
+				cout << "введите год" << endl;
+				cin >> udal_in;
+				for (int i = 0; i < inf.size(); i++)
+				{
+					if (inf[i].year == udal_in)
+					{
+						inf.erase(inf.begin() + i);
+						i--;
+					}
+				}
+				break;
+			}
+			case 4:
+			{
+				cout << "введите категорию" << endl;
+				cin >> udal_st;
+				for (int i = 0; i < inf.size(); i++)
+				{
+					if (inf[i].category == udal_st)
+					{
+						inf.erase(inf.begin() + i);
+						i--;
+					}
+
+				}
+				break;
+			}
+			case 5:
+			{
+				cout << "введите цену" << endl;
+				cin >> udal_in;
+				for (int i = 0; i < inf.size(); i++)
+				{
+					if (inf[i].price == udal_in)
+					{
+						inf.erase(inf.begin() + i);
+						i--;
+					}
+				}
+				break;
+			}
+			case 6:
+			{
+				cout << "удалить поддерж/нет (1/0)" << endl;
+				cin >> udal_in;
+				for (int i = 0; i < inf.size(); i++)
+				{
+					if (inf[i].old == udal_in)
+					{
+						inf.erase(inf.begin() + i);
+						i--;
+					}
+				}
+				break;
+			}
+			default: cout << "недопустимый вариант ответа" << endl;
+			break;
+			}
+			break;
+		}
+		case 4:
+		{
+			cout << "введите категорию" << endl;
+			string kat;
+			cin >> kat;
+			for (int i = 0; i < inf.size(); i++)
+			{
+				if (inf[i].category == kat)
+				{
+					cout << left << setw(10) << inf[i].id << setw(10) << inf[i].mark << setw(10) << inf[i].year << setw(10) << inf[i].category << setw(13) << inf[i].price << setw(10) << inf[i].old << endl;
+				}
+
+			}
+			break;
+		}
+		case 5:
+		{
+			ofstream fout;
+			cout << "введите название файла без расшиени€" << endl;
+			string name;
+			cin >> name;
+			fout.open(name + ".txt");
+
+			for (int i = 0; i < inf.size(); i++)
+			{
+				fout << left << setw(8) << inf[i].id << inf[i].mark << setw(8) << inf[i].year << setw(8) << inf[i].category << setw(10) << inf[i].price << setw(8) << inf[i].old << endl;
+			}
+			fout.close();
+			break;
+		}
+		case 6:
+		{
+			cout << "выберите категорию, по которой произвести сортировку" << endl
+				<< " 1.id   2.марка    3.год   4. категри€  5. цена  6.поддерж" << endl;
+			int sort;
+			cin >> sort;
+			switch (sort)
+			{
+			case 1:
+			{
+				for (int i = 0; i < inf.size(); i++)
+				{
+					for (int j = 0; j < inf.size() - 1; j++)
+					{
+						if (inf[j].id > inf[j + 1].id) swap(inf[j].id, inf[j + 1].id);
+					}
+				}
+				break;
+			}
+			case 2:
+			{
+				for (int i = 0; i < inf.size(); i++)
+				{
+					for (int j = 0; j < inf.size() - 1; j++)
+					{
+						if (inf[j].mark > inf[j + 1].mark) swap(inf[j].mark, inf[j + 1].mark);
+					}
+				}
+				break;
+			}
+			case 3:
+			{
+				for (int i = 0; i < inf.size(); i++)
+				{
+					for (int j = 0; j < inf.size() - 1; j++)
+					{
+						if (inf[j].year > inf[j + 1].year) swap(inf[j].year, inf[j + 1].year);
+					}
+				}
+				break;
+			}
+			case 4:
+			{
+				for (int i = 0; i < inf.size(); i++)
+				{
+					for (int j = 0; j < inf.size() - 1; j++)
+					{
+						if (inf[j].category > inf[j + 1].category) swap(inf[j].category, inf[j + 1].category);
+					}
+				}
+				break;
+			}
+			case 5:
+			{
+				for (int i = 0; i < inf.size(); i++)
+				{
+					for (int j = 0; j < inf.size() - 1; j++)
+					{
+						if (inf[j].price > inf[j + 1].price) swap(inf[j].price, inf[j + 1].price);
+					}
+				}
+				break;
+			}
+			case 6:
+			{
+				for (int i = 0; i < inf.size(); i++)
+				{
+					for (int j = 0; j < inf.size() - 1; j++)
+					{
+						if (inf[j].old > inf[j + 1].old) swap(inf[j].old, inf[j + 1].old);
+					}
+				}
+				break;
+			}
+			default: cout << "недопустимый вариант ответа" << endl;
+				break;
+			}
+			break;
+		}
+		case 7:
+		{
+			cout << "введите больше какой цены" << endl;
+			int pay;
+			cin >> pay;
+			for (int i = 0; i < inf.size(); i++)
+			{
+				if (inf[i].price >= pay)
+				{
+					cout << left << setw(8) << inf[i].id << inf[i].mark << setw(8) << inf[i].year << setw(8) << inf[i].category << setw(10) << inf[i].price << setw(8) << inf[i].old << endl;
+				}
+			}
+		}
+		case 0: break;
+
+		default: cout << "недопустимый вариант ответа" << endl;
+		}
+	}
+
+
+
+
+	system("pause");
+}
