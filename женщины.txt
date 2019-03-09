@@ -29,7 +29,13 @@ child birthday(woman w)
 		a.weight = rand() % 3+ 2;
 		return a;
 }
-
+void kompl(woman w)
+{
+	cout << "как вас зовут(англ буквы)? сколько вам лет?" << endl;
+	cin >> w.name >> w.age;
+	cout << "вау! " << w.name << ", вы прекрасны для своих " << w.age << " !" << endl;
+	return ;
+}
 int main()
 {
 	setlocale(LC_ALL, "Rus");
@@ -83,9 +89,7 @@ int main()
 		}
 		case 2:
 		{
-			cout << "как вас зовут(англ буквы)? сколько вам лет?" << endl;
-			cin >> w.name >> w.age;
-			cout << "вау! " << w.name << ", вы прекрасны для своих " << w.age << " !" << endl;
+			kompl(w);
 			break;
 		}
 		}
