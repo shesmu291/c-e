@@ -1,0 +1,94 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <vector>
+#include <fstream>
+#include <ctime>
+using namespace std;
+
+struct woman
+{
+	string name;
+	int age;
+	bool married;
+};
+struct child
+{
+	string gender;
+	float weight;
+	string name;
+};
+
+child birthday(woman w)
+{
+		child a;
+		int b;
+		b = rand() % 1;
+		if (b == 0) a.gender = "девочка";
+		else a.gender = "мальчик";
+		a.weight = rand() % 3+ 2;
+		return a;
+}
+
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	srand(time(NULL));
+	int menu = -1;
+	woman w;
+	//child c;
+	while (menu != 0)
+	{
+		cout << "что вы хотите сделать?" << endl
+			<< "1.родить ребенка" << endl
+			<< "2.получить комплимент" << endl
+			<< "0. выйти" << endl;
+		cin >> menu;
+		switch (menu)
+		{
+		case 1:
+		{
+			cout << "заполните данные: ваше имя(англ буквы), сколько полных лет, замужем ли Вы да/нет (1/0)" << endl;
+			cin >> w.name >> w.age >> w.age;
+			if (w.age > 17 && w.married == 1)
+			{
+				child c = birthday(w);
+				cout << " у вас " << c.gender << "! как назовете? (англ буквы)" << endl;
+				cin >> c.name;
+				cout << "поздравляем! у " << c.name << " вес" << c.weight << endl;
+				break;
+			}
+			else
+			{
+				cout << "вы точно уверены, что хотите ребенка? да/нет (1/0)" << endl;
+				bool r;
+				cin >> r;
+				if (r == 1)
+				{
+					
+						child c = birthday(w);
+						cout << " у вас " << c.gender << "! как назовете? (англ буквы)" << endl;
+						cin >> c.name;
+						cout << "поздравляем! у " << c.name << " вес" << c.weight << endl;
+						break;
+					
+				}
+				else
+				{
+					cout << "ok!" << endl;
+					break;
+				}
+			}
+			break;
+		}
+		case 2:
+		{
+			cout << "как вас зовут(англ буквы)? сколько вам лет?" << endl;
+			cin >> w.name >> w.age;
+			cout << "вау! " << w.name << ", вы прекрасны для своих " << w.age << " !" << endl;
+			break;
+		}
+		}
+	}
+	system("pause");
+}
