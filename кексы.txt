@@ -1,0 +1,104 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <vector>
+#include <fstream>
+#include <ctime>
+using namespace std;
+
+class Cake
+{
+private:
+
+	string filling;
+	bool ready;
+	int weight;
+
+public:
+	void Cakeparam()
+	{
+		filling = "";
+		ready = 0;
+
+		weight = 0;
+
+	}
+	 void Cakeparam(string s, int n)
+	{
+		
+			filling = s;
+			weight = n;
+			ready = 0;
+		
+	}
+	 void Cook()
+	 {
+		 if (ready == 0)
+		 {
+			 ready = 1;
+			 cout << "cake is ready!" << endl;
+		 }
+		 else cout << "error. the cake is ready" << endl;
+	 }
+	string GetFilling()
+	{
+		return filling;
+	}
+	int GetWeight()
+	{
+		return weight;
+	}
+	bool GetReady()
+	{
+		return ready;
+	}
+	void Eat()
+	{
+		if (ready == 1)
+		{
+			cout << "hrm hrm ..... oh! hear you like" << endl;
+			ready = 0;
+		}
+		else cout << "error. the cake is not ready" << endl;
+	}
+	
+};
+
+
+int main()
+{
+	Cake A;
+	srand(time(NULL));
+	int menu = -1;
+	while (menu != 0)
+	{
+		cout << endl;
+		cout << "Cake" << endl
+			<< "1. cook" << endl
+			<< "2. eat" << endl
+			<< "3. what stuffing" << endl
+			<< "4. learn weight" << endl
+			<< "0. exit" << endl;
+		cin >> menu;
+		switch (menu)
+		{
+		case 1:
+		{
+				cout << "enter the filling and weight" << endl;
+				string st;
+				cin >> st;
+				int in;
+				cin >> in;
+				 A.Cakeparam(st, in);
+			
+				A.Cook();
+			break;
+		}
+		case 2: {A.Eat(); break; }
+		case 3: {cout<<A.GetFilling();  break; }
+		case 4: {cout<<A.GetWeight(); break; }
+		}
+	}
+
+		system("pause");
+	}
