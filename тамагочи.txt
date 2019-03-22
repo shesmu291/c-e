@@ -1,0 +1,270 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <vector>
+#include <fstream>
+#include <ctime>
+#include <conio.h>
+#include <Windows.h>
+#include <cstdlib>
+using namespace std;
+
+class CatClass
+{
+private:
+
+	string colour;
+	string name;
+	string state;
+	int age;
+	int health;
+	int mood;
+
+public:
+	void Cat()
+	{
+		name = "";
+		colour = "";
+		state = " ";
+		age = 0;
+		health = 0;
+		mood = 0;
+
+	}
+	void CatStart(string n, string c)
+	{
+		
+			name = n;
+			colour = c;
+			state = "sit";
+			age = 0;
+			health = 10;
+			mood = 5;
+	}
+	 
+	string GetName()
+	{
+		return name;
+	}
+	string GetState()
+	{
+		return state;
+	}
+	string GetColour()
+	{
+		return colour;
+	}
+	int GetAge()
+	{
+		return age;
+	}
+	int GetMood()
+	{
+		return mood;
+	}
+	int GetHealth()
+	{
+		return health;
+	}
+	
+	void Play()
+	{
+		if (state == "sit")
+		{
+			int a, b;
+			b = 10 - mood;
+			if (b != 0)
+			{
+				a = rand() % b;
+				mood += a;
+				cout << "Hooray! I like to play!" << endl;
+			}
+			else
+			{
+				cout << "more fun nowhere ... tired of the game!" << endl;
+				a = rand() % 10;
+				mood -= a;
+			}
+			int sl;
+			sl = rand() % 7;
+			if (sl == 2 || sl == 1)
+			{
+				state = "sleep";
+				cout << "something tired...Zzz...Zzz..." << endl;
+			}
+		}
+		else cout << "I'm busy" << endl;
+	}
+	void Feed()
+	{
+		if (state == "sit")
+		{
+			int a, b;
+			b = 10 - health;
+			if (b != 0)
+			{
+				a = rand() % b;
+				health += a;
+				cout << "cheers food" << endl;
+			}
+			else
+			{
+				cout << "too much food...." << endl;
+				a = rand() % 10;
+				health -= a;
+			}
+			int sl;
+			sl = rand() % 7;
+			if (sl == 2 || sl == 1)
+			{
+				state = "sleep";
+				cout << "something tired...Zzz...Zzz..." << endl;
+			}
+		}
+		else cout << "I'm busy" << endl;
+	}
+	void Wake()
+	{
+		int a,b;
+		if (state=="walk" )
+		{
+			state = "sit";
+			cout << "I'm here!" << endl;
+
+			int r;
+			r = rand() % 6;
+			if (r == 1)
+			{
+				a = rand() % (health - 1);
+				health -= a;
+				cout << "I hit a bit..." << endl;
+			}
+			if (r == 2)
+			{
+				a = rand() % (mood - 1);
+				mood -= a;
+				cout << "the weather was bad :( " << endl;
+			}
+			if (r == 3)
+			{
+				a = rand() % health ;
+				health -= a;
+				b = rand() % mood ;
+				mood -= b;
+				cout << "the walk was bad..." << endl;
+			}
+		}
+		else
+		{
+			if (state == "sleep")
+			{
+				cout << "good morning!" << endl; state = "sit";
+			}
+			else cout << "I'm already here, what else do you want from me??" << endl;
+		}
+	}
+	void Throw()
+	{
+		if (state != "walk")
+		{
+			state = "walk";
+			cout << "walkiiing!!!!" << endl;
+		}
+		else cout << "...(silence ... apparently the cat is already walking)" << endl;
+	}
+	void RandomEvent()
+	{
+		mood = rand() % 10;
+		health = rand() % 10;
+		age += 1;
+		cout << "happy Birthday to me!" << endl;
+		int sl;
+		sl = rand() % 7;
+		if (sl==2 || sl==1)
+		{
+			state = "sleep";
+			cout << "something tired...Zzz...Zzz..." << endl;
+		}
+	}
+
+};
+
+
+int main()
+{
+	SetConsoleOutputCP(251);
+	SetConsoleCP(251);
+	CatClass A;
+	srand(time(NULL));
+	string name;
+	string colour;
+	cout << "  Hello!  " << endl
+		<< "Choose a cat color and name >> "<<endl;
+	cin >> colour >> name;
+	A.CatStart(name, colour);
+
+	int mood[10]{ 0,0,0,0,0,0,0,0,0,0 };
+	int health[10]{ 0,0,0,0,0,0,0,0,0,0 };
+
+
+	while (true)
+	{
+		system("cls");
+for (int i = 0; i < 10; i++) mood[i] = 0;
+		for (int i = 0; i < 10; i++) health[i] = 0;
+		
+		if (A.GetMood() == 0 || A.GetHealth() == 0)
+		{
+			cout << "you were a bad boss! I'm leaving!" << endl;
+			break;
+		}
+		if (A.GetAge() == 100)
+		{
+			cout << "you were a great host! I love you. thanks for all. goodbye..." << endl;
+			break;
+		}
+
+		for (int i = 0; i < A.GetMood(); i++) mood[i] = 1;
+		for (int i = 0; i < A.GetHealth(); i++) health[i] = 1;
+		cout << endl;
+		cout << setw(15) << A.GetName() << "  (" << A.GetColour() << ")    Age: " << A.GetAge() << endl;
+		cout << "mood:  ";
+		for (int i = 0; i < 10; i++)
+		{
+			if (mood[i] == 0) cout << static_cast<char>(253);
+			else cout << static_cast<char>(254);
+		}
+		cout << endl;
+		cout << "health:  ";
+		for (int i = 0; i < 10; i++)
+		{
+			if (health[i] == 0) cout << static_cast<char>(253);
+			else cout << static_cast<char>(254);
+		}
+		cout << endl;
+		cout << setw(40) << "/\__/\  " << "1.play" << endl
+			<< setw(40) << "|O_O |  " << "2.feed" << endl
+			<< setw(40) << "\___ /  " << "3.to come" << endl
+			<< setw(40) << " " << "4.walk" << endl
+			<< setw(40) << " " << "5.random + 1 year" << endl
+			<< setw(30) << " " << "status  " << A.GetState() << endl;
+
+		cout << endl;
+		int key = _getch();
+		if (key == 49) {A.Play(); _getch();
+		}
+		if (key == 50) {A.Feed(); _getch();
+		}
+		if (key == 51) {A.Wake(); _getch();
+		}
+		if (key == 52) {A.Throw(); _getch();
+		}
+		if (key == 53) {
+			A.RandomEvent(); _getch();
+		}
+
+
+	}
+
+		system("pause");
+	}
