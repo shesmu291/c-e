@@ -1,0 +1,55 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <fstream>
+using namespace std;
+
+
+
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	ofstream fout;
+	ifstream fin;
+fin.open("input.txt");
+
+	
+
+	string str;
+	int ch;
+	vector<string> nazv;
+	while (!fin.eof())
+	{
+		fin >> str;
+		
+
+		
+		
+		for (int i = 0; i < str.size(); i++)
+		{
+			if (str[i] == '1' || str[i] == '2' || str[i] == '3' || str[i] == '4' || str[i] == '5' || str[i] == '6' || str[i] == '7' || str[i] == '8' || str[i] == '9' || str[i] == '0')
+			{
+				cout << str[i];
+				str.erase(str.begin() + i);
+				i--;
+
+			}
+		}
+		nazv.push_back(str);
+	}
+	fout.open("output.txt");
+		for (int i = 0; i < nazv.size(); i++)
+		{
+			fout << nazv[i];
+			fout << endl;
+		}
+	
+
+
+
+
+	fout.close();
+	fin.close();
+
+	system("pause");
+}
